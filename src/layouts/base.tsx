@@ -65,7 +65,7 @@ export default function BaseLayout() {
   };
 
   return (
-    <div className="bg-base-100 text-slate-600 dark:text-slate-400">
+    <div className="flex flex-col bg-base-100 text-slate-600 dark:text-slate-400 overflow-hidden h-full">
       <header className="fixed bg-base-100 px-4 lg:px-8 top-0 z-30 flex h-16 w-full justify-between items-center bg-opacity-90 backdrop-blur transition-all duration-100 [transform:translate3d(0,0,0)] shadow-sm dark:shadow-slate-500/20">
         <img
           alt="GPTHub"
@@ -110,7 +110,8 @@ export default function BaseLayout() {
           </a>
         </div>
       </header>
-      <main className="px-6 lg:max-w-screen-2xl m-auto pt-16 min-h-[calc(100vh-6.5rem)]">
+      <div className="h-16"></div>
+      <main className="flex-grow px-6 lg:max-w-screen-2xl m-auto flex items-center justify-center">
         <Routes />
       </main>
       <BackTop />
