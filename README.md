@@ -1,32 +1,102 @@
-<h3 align="center">
-<img width="200" src="./public/gpthub.png">
-</h3>
+# GPTHub
 
-🔍 Discover the Best in Custom GPT at OpenAI's GPT Store – Your Adventure Begins Here!
+## Description
 
-<a href="https://www.buymeacoffee.com/ren" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" style="height: 40px !important;width: 145px !important;" ></a>
-
-<a href="https://www.producthunt.com/posts/gpthub?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-gpthub" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=424710&theme=light" alt="GPTHub - Find&#0032;Top&#0032;Custom&#0032;GPT&#0032;–&#0032;Start&#0032;at&#0032;GPTHub&#0033; | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
-
-> **Note:**\
-> Please exercise caution when using data obtained from the internet. Ensure the protection of your personal information to avoid falling prey to scams.
-
-Website: [gpthub.nofwl.com](https://gpthub.ren.com)
-Try GPT: **[FindGPT](https://chat.openai.com/g/g-e2bIguMqf-findgpt)**
-
-![GPTHub Light Mode](assets/4.png)
-![GPTHub Dark Mode](assets/5.png)
+GPTHub is a modern web application designed to showcase and manage various GPT models. It features a clean, responsive UI with dynamic routing, comprehensive theme switching (System, Light, Dark modes), and a dedicated 404 error page. The homepage provides a professional and engaging entry point with a striking gradient display of the app's title.
 
 ## Features
 
-- Supports light/dark theme mode
-- Supports fuzzy search for name and description fields
-- View GPT details to learn more about the specifics
-- Continuous and uninterrupted updates
-- ...
+-   **Dynamic Routing:** Seamless navigation with `react-router-dom`, including robust 404 error handling.
+-   **Advanced Theme Switching:** Supports System (OS preference), Light, and Dark themes for a personalized user experience.
+-   **GPT Management:** Easily browse and view details of various GPT models with integrated search functionality.
+-   **Responsive Design:** Optimized for various devices and screen sizes.
+
+## Quick Start
+
+Follow these steps to get GPTHub up and running locally:
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/your-username/GPTHub.git
+    cd GPTHub
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    # or yarn install
+    ```
+
+3.  **Run in Development Mode:**
+    ```bash
+    npm run dev
+    # or yarn dev
+    ```
+    (Starts development server at `http://localhost:5173`)
+
+4.  **Build for Production:**
+    ```bash
+    npm run build
+    # or yarn build
+    ```
+    (Output in the `dist` folder)
+
+5.  **Serve Production Build (optional):**
+    If you don't have `serve` installed globally:
+    ```bash
+    npm install -g serve
+    ```
+    Then, run:
+    ```bash
+    serve -s dist
+    ```
+    (Starts local server, usually at `http://localhost:3000`)
 
 ## Website Preview
 
-![GPTHub Light Mode](assets/1.png)
-![GPTHub Dark Mode](assets/2.png)
-![GPTHub Detail Dark Mode](assets/3.png)
+<p align="center">
+  <img width="200" src="./public/gpthub.png" alt="GPTHub Logo">
+</p>
+
+<p align="center">
+  <i>A glimpse of GPTHub in action:</i>
+</p>
+
+### Light Mode
+
+![GPTHub Homepage Light Mode](./assets/1.png)
+
+![GPTHub GPTs List Light Mode](./assets/2.png)
+
+![GPTHub GPT Detail Light Mode](./assets/3.png)
+
+### Dark Mode
+
+![GPTHub GPTs List Dark Mode](./assets/4.png)
+
+![GPTHub GPT Detail Dark Mode](./assets/5.png)
+
+## Project Structure
+
+```
+./
+├── public/           # Static assets (main logo, favicons, etc.)
+├── src/
+│   ├── assets/       # UI-specific images (screenshots)
+│   ├── components/   # Reusable UI components
+│   ├── icons/        # SVG icons
+│   ├── layouts/      # Application layout components
+│   ├── utils/        # Utility functions
+│   ├── views/        # Page-level components (Home, GPTs, Error, etc.)
+│   ├── index.css     # Global styles
+│   ├── main.tsx      # Application entry point
+│   └── routes.tsx    # Routing configuration
+├── dist/             # Production build output
+├── README.md         # This file
+├── package.json
+└── ... (other config files)
+```
+
+## Contributing
+
+Contributions are welcome! Feel free to fork the repository, open issues, or submit pull requests.
