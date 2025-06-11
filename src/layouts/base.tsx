@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Routes from '@/routes';
@@ -9,32 +9,60 @@ import SunIcon from '@icons/Sun';
 import BackTop from '@components/BackTop';
 
 export default function BaseLayout() {
-  const [isDark, setDark] = useState(false);
+  const [themeMode, setThemeMode] = useState('system'); // 'system', 'light', 'dark'
   const navigate = useNavigate();
+  const themeModeRef = useRef(themeMode); // Create a ref to hold the current themeMode
 
+  // Update the ref whenever themeMode changes
   useEffect(() => {
-    const theme = localStorage.getItem('theme');
-    const isDark2 = theme === 'dracula';
-    setDark(isDark2);
-    handleClass(isDark2);
-  }, [])
+    themeModeRef.current = themeMode;
+  }, [themeMode]);
 
-  const handleClass = (dark: boolean) => {
+  const getAppliedTheme = (mode: string) => {
+    if (mode === 'system') {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dracula' : 'cupcake';
+    } else {
+      return mode === 'dark' ? 'dracula' : 'cupcake';
+    }
+  };
+
+  const applyTheme = (mode: string) => {
     const html = document.documentElement;
-    html.setAttribute('data-theme', dark ? 'dracula' : 'cupcake');
-    if (dark) {
+    const applied = getAppliedTheme(mode);
+    html.setAttribute('data-theme', applied);
+    if (applied === 'dracula') {
       html.classList.add('dark');
     } else {
       html.classList.remove('dark');
     }
-  }
+    localStorage.setItem('theme', mode);
+  };
 
-  const handleTheme = () => {
-    const newTheme = isDark ? 'cupcake' : 'dracula';
-    localStorage.setItem('theme', newTheme);
-    setDark(!isDark);
-    handleClass(!isDark);
-  }
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    const initialTheme = savedTheme === 'dracula' ? 'dark' : (savedTheme === 'cupcake' ? 'light' : 'system');
+    setThemeMode(initialTheme);
+    applyTheme(initialTheme);
+
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = () => {
+      // Use the ref to get the current themeMode
+      if (themeModeRef.current === 'system') {
+        applyTheme('system'); // Re-apply if system preference changes
+      }
+    };
+    mediaQuery.addEventListener('change', handleChange);
+
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []); // Empty dependency array - runs only once on mount
+
+  const toggleTheme = () => {
+    setThemeMode((prevMode) => {
+      const newMode = prevMode === 'system' ? 'light' : (prevMode === 'light' ? 'dark' : 'system');
+      applyTheme(newMode);
+      return newMode;
+    });
+  };
 
   return (
     <div className="bg-base-100 text-slate-600 dark:text-slate-400">
@@ -45,11 +73,13 @@ export default function BaseLayout() {
           onClick={() => navigate('/')}
         />
         <div className="flex items-center gap-3">
-          <label className="swap swap-rotate w-[22px] h-[22px] cursor-default rounded">
-            <input type="checkbox" checked={isDark} onChange={handleTheme} />
-            <SunIcon className="swap-off" size={22} />
-            <MoonIcon className="swap-on" size={22} />
-          </label>
+          <button onClick={toggleTheme} className="w-[22px] h-[22px] cursor-pointer rounded flex items-center justify-center">
+            {themeMode === 'dark' || (themeMode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches) ? (
+              <MoonIcon size={22} />
+            ) : (
+              <SunIcon size={22} />
+            )}
+          </button>
           <a
             href="https://github.com/ren-418/Custom-GPT-Plugin"
             target="_blank"
@@ -72,7 +102,7 @@ export default function BaseLayout() {
               onClick={() => navigate('/')}
             />
           </a>
-          <a href="https://www.producthunt.com/posts/gpthub?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-gpthub" target="_blank">
+          <a href="https://www.producthunt.com/posts/gpthub?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-gpthub" target="_blank" rel="noopener noreferrer">
             <img
               src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=424710&theme=light" alt="GPTHub | Product Hunt"
               className="w-[140px]"
@@ -80,7 +110,7 @@ export default function BaseLayout() {
           </a>
         </div>
       </header>
-      <main className="px-6 pt-[100px] lg:max-w-screen-2xl m-auto">
+      <main className="px-6 lg:max-w-screen-2xl m-auto pt-16 min-h-[calc(100vh-6.5rem)]">
         <Routes />
       </main>
       <BackTop />

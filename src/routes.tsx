@@ -4,6 +4,7 @@ import { useRoutes } from 'react-router-dom';
 import GPTs from '@views/GPTs';
 import GPTDetail from '@views/GPTDetail';
 import Home from '@views/Home';
+import Error from '@views/Error';
 
 type RouteObject = {
   path: string;
@@ -24,6 +25,10 @@ export const routes: Array<RouteObject> = [
   {
     path: '/',
     element: <Home />,
+  },
+  {
+    path: '*',
+    element: <Error />,
   }
 ];
 

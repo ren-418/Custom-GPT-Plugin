@@ -6,9 +6,9 @@ import { Helmet } from 'react-helmet';
 import { gptLink } from '@/utils';
 import GPTTools from '@components/GPTTools';
 import GPTPrompts from '@components/GPTPrompts';
-import GPTHubNote from '@components/GPTHubNote';
 import Comments from '@components/Comments'
 import data from '@@/gpthub.json';
+import Error from '@views/Error';
 
 export default function GPTs() {
   const params = useParams();
@@ -17,7 +17,7 @@ export default function GPTs() {
     return data?.gpts?.find((item) => item.id === params?.id);
   }, [params?.id]);
 
-  if (!gptInfo?.id) return null;
+  if (!gptInfo?.id) return <Error />;
 
   const link = gptLink(gptInfo.id);
 
@@ -31,7 +31,6 @@ export default function GPTs() {
         <span>By {gptInfo?.author || 'community builder'}</span>
         <span className="text-sm text-slate-500/80 dark:text-slate-400/50">{dayjs(gptInfo.updated_at).format('YYYY/MM/DD')}</span>
       </div>
-      <GPTHubNote className="mb-5" />
       <GPTTools data={gptInfo} />
       <div className="my-3">
         <b className="text-teal-600 mr-3">Description:</b>
