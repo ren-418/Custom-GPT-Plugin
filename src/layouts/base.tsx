@@ -112,7 +112,7 @@ export default function BaseLayout() {
         </div>
       </header>
       <div className="h-16"></div>
-      <main className="flex-grow px-6 lg:max-w-screen-2xl m-auto flex items-center justify-center" id='github'>
+      <main className="flex-grow px-6 lg:max-w-screen-2xl m-auto flex items-center justify-center">
         <Routes />
       </main>
       <BackTop />
