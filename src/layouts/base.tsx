@@ -7,6 +7,7 @@ import GitHubIcon from '@icons/GitHub';
 import MoonIcon from '@icons/Moon';
 import SunIcon from '@icons/Sun';
 import BackTop from '@components/BackTop';
+import "./base.css";
 
 export default function BaseLayout() {
   const [themeMode, setThemeMode] = useState('system'); // 'system', 'light', 'dark'
@@ -111,7 +112,7 @@ export default function BaseLayout() {
         </div>
       </header>
       <div className="h-16"></div>
-      <main className="flex-grow px-6 lg:max-w-screen-2xl m-auto flex items-center justify-center">
+      <main className="flex-grow px-6 lg:max-w-screen-2xl m-auto flex items-center justify-center" id='github'>
         <Routes />
       </main>
       <BackTop />
